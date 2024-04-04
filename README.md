@@ -275,7 +275,9 @@ module.exports = {
 配置好代码检查工具，但是需要每次手动去执行才会进行格式化，如果有人没有格式化就提交远程仓库，那这个规范就没有用了，所以我们要前置开发按照规范来提交。
 我们就利用husky在代码提交前触发git hook（git 在用户本地的钩子），然后执行`pnpm run format`来自动执行格式化代码。
 
-安装`pnpm install husky -D`，执行`npx husky-init`，他会在根目录生产一个`.husky`目录，在目录下会有个`pre-commit`文件，文件里面的命令在我们执行`git commit`
+首先，安装`pnpm install husky -D`
+
+其次初始化目录`git init`，然后关联远程仓库并推送代码，然后执行`npx husky-init`，他会在根目录生产一个`.husky`目录，在目录下会有个`pre-commit`文件，文件里面的命令在我们执行`git commit`
 的时候会执行.
 
 在`.husky/pre-commit`文件添加如下命令：
