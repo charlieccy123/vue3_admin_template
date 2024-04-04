@@ -284,3 +284,80 @@ module.exports = {
 . "$(dirname -- "$0")/_/huksy.sh"
 pnpm run format
 ```
+
+### 配置commitlint
+
+这个是对commit信息做规范的工具，不能随便写，要让每个人按照统一的标准来执行。
+
+安装`pnpm add @commitlint/config-conventional @commitlint/cli -D`
+
+根目录添加配置文件`commitlint.config.cjs`
+
+```js
+module.exports = {
+  ignores: [(commit) => commit.includes('init')],
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    'type-enum': [
+      2,
+      'always',
+      [
+        'feat',
+        'fix',
+        'docs',
+        'style',
+        'refactor',
+        'perf',
+        'test',
+        'chore',
+        'revert',
+        'build',
+      ],
+    ],
+    'type-case': [0],
+    'type-empty': [0],
+    'scope-empty': [0],
+    'scope-case': [0],
+    'subject-full-stop': [0, 'never'],
+    'subject-case': [0, 'never'],
+    'header-max-length': [0, 'always', 72]
+  },
+}
+```
+
+然后在`package.json`中配置`scripts`命令
+
+```js
+{
+  "scripts": {
+    "commitlint": "commitlint --config commitlint.config.cjs -e -V"
+  }
+}
+```
+
+配置结束后，当我们填写commit信息的时候，前面需要带下面的subject
+
+feat 新特性，新功能
+fix 修改bug
+docs 文档修改
+style 代码格式修改，注意这里不是css修改
+refactor 代码重构
+pref 优化相关，比如提升性能或者体验
+test 测试用例修改
+chore 其他修改，比如改变构建流程或者增加依赖库、工具等
+revert 会滚到上一个版本
+build 编译相关修改，例如发布版本，对项目构建或者依赖的改动
+
+配置husky`npx husky add .husky/commit-msg`，他会在`.husky`目录里生成`commit-msg`文件，然后添加下面的内容
+
+```shell
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+pnpm commitlint
+```
+
+这样当我们commit信息的时候，就不能随便写里，必须是`git commit -m "fix: xxxxxx"`，需要注意的是`fix: `必须有冒号，冒号后面必须有空格。
+
+
+
