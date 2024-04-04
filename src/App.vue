@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts"></script>
-
+for(let i = 0; i<10; i++) { console.log(i) }
 <style scoped>
 .logo {
   height: 6em;
