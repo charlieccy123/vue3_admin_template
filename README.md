@@ -320,7 +320,7 @@ module.exports = {
     'scope-case': [0],
     'subject-full-stop': [0, 'never'],
     'subject-case': [0, 'never'],
-    'header-max-length': [0, 'always', 72]
+    'header-max-length': [0, 'always', 72],
   },
 }
 ```
@@ -358,6 +358,3 @@ pnpm commitlint
 ```
 
 这样当我们commit信息的时候，就不能随便写里，必须是`git commit -m "fix: xxxxxx"`，需要注意的是`fix: `必须有冒号，冒号后面必须有空格。
-
-
-
